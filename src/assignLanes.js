@@ -3,8 +3,9 @@
  * @returns an array of arrays containing items.
  */
 export function assignLanes(items) {
-  const sortedItems = items.sort((a, b) =>
-    new Date(a.start) - new Date(b.start)
+  // Copy array before sorting so caller's array is not mutated.
+  const sortedItems = [...items].sort(
+    (a, b) => new Date(a.start) - new Date(b.start)
   );
   const lanes = [];
 
