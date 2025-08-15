@@ -1,5 +1,7 @@
 # Timeline Component Implementation
 
+![alt text](docs/image.png)
+
 A modern, responsive timeline component built with React and Tailwind CSS that arranges items in compact, space-efficient horizontal lanes.
 
 ## Features
