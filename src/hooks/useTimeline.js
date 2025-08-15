@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { assignLanes } from "../assignLanes";
 import { parseISO } from "../utils/parseISO";
 import { useWindowSize } from "./useWindowSize";
@@ -26,8 +26,14 @@ export function useTimeline(items) {
     }, parseISO(flat[0].end));
   }, [flat]);
 
-  const timelineStart = new Date(Date.UTC(minStart.getUTCFullYear(), minStart.getUTCMonth(), minStart.getUTCDate() - TIMELINE_CONFIG.PAD_DAYS));
-  const timelineEnd = new Date(Date.UTC(maxEnd.getUTCFullYear(), maxEnd.getUTCMonth(), maxEnd.getUTCDate() + TIMELINE_CONFIG.PAD_DAYS));
+  const [padDays, setPadDays] = useState(TIMELINE_CONFIG.PAD_DAYS);
+  
+  const timelineStart = new Date(Date.UTC(minStart.getUTCFullYear(), minStart.getUTCMonth(), minStart.getUTCDate() - padDays));
+  const timelineEnd = new Date(Date.UTC(maxEnd.getUTCFullYear(), maxEnd.getUTCMonth(), maxEnd.getUTCDate() + padDays));
+  
+  const adjustTimeRange = (increment) => {
+    setPadDays(prev => Math.max(0, prev + increment));
+  };
 
   // Compute row height dynamically based on viewport height.
   const { height: winH } = useWindowSize();
@@ -46,6 +52,8 @@ export function useTimeline(items) {
     timelineStart,
     timelineEnd,
     rowH,
-    headerH
+    headerH,
+    padDays,
+    adjustTimeRange
   };
 } 
