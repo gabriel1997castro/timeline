@@ -1,7 +1,7 @@
 import { parseISO } from "../utils/parseISO";
 import { daysBetween } from "../utils/daysBetween";
 import { useMeasureText } from "../hooks/useMeasureText";
-import { TIMELINE_CONFIG, TIMELINE_CLASSES } from "../utils/constants";
+import { TIMELINE_CONFIG } from "../utils/constants";
 
 export function TimelineItem({ 
   item, 
@@ -11,8 +11,6 @@ export function TimelineItem({
   timelineEnd, 
   width 
 }) {
-
-
   const measureText = useMeasureText();
   const totalDays = daysBetween(timelineStart, timelineEnd);
 
@@ -40,11 +38,9 @@ export function TimelineItem({
   // Final width is at least minBarPx and at most the available space.
   const widthPx = Math.max(TIMELINE_CONFIG.MIN_BAR_PIXELS, Math.min(wantW, maxW));
 
-
-
   return (
     <div
-      className={TIMELINE_CLASSES.ITEM}
+      className="absolute group flex items-center rounded-lg border border-blue-600/80 bg-gradient-to-br from-blue-900/90 to-blue-800/90 backdrop-blur-sm shadow-sm shadow-blue-900/25 transition-all duration-150 hover:scale-[1.02] hover:shadow-md hover:shadow-blue-900/40 hover:z-10"
       style={{
         top: laneIndex * rowH + 4,
         left,
@@ -54,10 +50,10 @@ export function TimelineItem({
       title={`${item.name} • ${item.start} → ${item.end}`}
     >
       <div className="flex-1 min-w-0 px-3 py-1">
-        <div className="text-sm font-medium text-sky-900 truncate">
+        <div className="text-sm font-medium text-blue-100 truncate">
           {item.name}
         </div>
-        <div className="text-[11px] text-sky-700/70 truncate">
+        <div className="text-[11px] text-blue-300/70 truncate">
           {item.start} → {item.end}
         </div>
       </div>

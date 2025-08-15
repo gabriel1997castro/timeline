@@ -1,7 +1,6 @@
 import { daysBetween } from "../utils/daysBetween";
 import { buildMonthlyTicks } from "../utils/buildMonthlyTicks";
 import { formatMonth } from "../utils/formatMonth";
-import { TIMELINE_CLASSES } from "../utils/constants";
 
 export function TimelineAxis({ timelineStart, timelineEnd, headerH = 48, width }) {
   const totalDays = daysBetween(timelineStart, timelineEnd);
@@ -18,20 +17,20 @@ export function TimelineAxis({ timelineStart, timelineEnd, headerH = 48, width }
   const todayX = showToday ? xForDate(todayUTC) : null;
 
   return (
-    <div className={TIMELINE_CLASSES.HEADER} style={{ height: headerH }}>
+    <div className="sticky top-0 z-10 border-b border-slate-700 bg-slate-900/95 backdrop-blur-sm" style={{ height: headerH }}>
       <div className="relative h-full">
         {ticks.map((t) => (
           <div key={t.toISOString()} className="absolute top-0 -translate-x-1/2" style={{ left: xForDate(t) }}>
-            <div className="w-px h-full bg-slate-200 mx-auto" />
-            <div className="absolute top-2 -translate-x-1/2 whitespace-nowrap font-medium text-xs text-slate-600">
+            <div className="w-px h-full bg-slate-600 mx-auto" />
+            <div className="absolute top-2 -translate-x-1/2 whitespace-nowrap font-medium text-xs text-slate-300">
               {formatMonth(t)}
             </div>
           </div>
         ))}
         {showToday && (
           <div className="absolute inset-y-0 z-10" style={{ left: todayX }}>
-            <div className="w-0.5 h-full bg-rose-500/80"></div>
-            <div className="absolute top-2 -translate-x-1/2 px-1.5 py-0.5 rounded-full bg-rose-500 text-[11px] font-medium text-white">
+            <div className="w-0.5 h-full bg-rose-400/80"></div>
+            <div className="absolute top-2 -translate-x-1/2 px-1.5 py-0.5 rounded-full bg-rose-400 text-[11px] font-medium text-slate-900">
               Today
             </div>
           </div>
